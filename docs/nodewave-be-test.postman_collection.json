@@ -1,0 +1,248 @@
+{
+	"info": {
+		"_postman_id": "bb7224a5-f7a0-4170-9a51-48cfebfb43c2",
+		"name": "nodewave-be-test",
+		"description": "##### Nodewave BE test API docs by Uqyanzie",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40584219"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Upload Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "c:\\Users\\uqyan\\Downloads\\1000Products.xlsx"
+								}
+							],
+							"options": {
+								"formdata": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"upload"
+							]
+						},
+						"description": "Endpoint to upload product, use multipart form data, has excel file extension validations.  \nRequires ADMIN permission"
+					},
+					"response": []
+				},
+				{
+					"name": "Product List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ1c2VyQHRlc3QuY29tIiwiZnVsbE5hbWUiOiJVc2VyIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3NjE3MzIzNjcsImV4cCI6MTc2MzE3MjM2N30.J23OzY-1AyfvJ6LWNZY-3Um8GdlTzOu1RxkV0-6pMM4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products?page=1&filters={\"category\": [\"kit\", \"accessories\"]}&searchFilters={\"name\":\"Tur\" ,\"skuCode\": \"ASD\"}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "filters",
+									"value": "{\"category\": [\"kit\", \"accessories\"]}"
+								},
+								{
+									"key": "searchFilters",
+									"value": "{\"name\":\"Tur\" ,\"skuCode\": \"ASD\"}"
+								}
+							]
+						},
+						"description": "Endpoint to retrieve product list with filters and using pagination.\n\nRequires authentication"
+					},
+					"response": []
+				}
+			],
+			"description": "Products Related endpoint"
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"fullName\": \"User\",\r\n    \"email\": \"user@test.com\",\r\n    \"password\": \"UserKeren123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "endpoint to get register as a user. Password will be encrypted with salt"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@test.com\",\r\n    \"password\": \"UserKeren123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "endpoint to get authenticated"
+					},
+					"response": []
+				},
+				{
+					"name": "Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"profile"
+							]
+						},
+						"description": "Endpoint to retrieve currently authenticated user (identified with token in headers)\n\nRequires authentication"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ1c2VyQHRlc3QuY29tIiwiZnVsbE5hbWUiOiJVc2VyIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3NjE3MzEzOTUsImV4cCI6MTc2MzE3MTM5NX0.ySXZRMjtkBD5rfUuqIQ-kO7jBjACEBt6g8npUttz2us",
+						"type": "string"
+					}
+				]
+			}
+		},
+		{
+			"name": "Main",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}",
+					"host": [
+						"{{base_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "robots.txt",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/robots.txt",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"robots.txt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/ping",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "example",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/example",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"example"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

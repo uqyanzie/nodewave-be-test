@@ -1,18 +1,14 @@
 import { PaginationResponse } from "$entities/Pagination";
 import { ProductDTO } from "$entities/Product";
-import { FilteringQuery, FilteringQueryV2 } from "$entities/Query";
+import { FilteringQueryV2 } from "$entities/Query";
 import { BadRequestWithMessage, ServiceResponse } from "$entities/Service";
-import Logger from '$pkg/logger';
 import { uploadFileHandler } from "$pkg/minio/minioClient";
-import taskQueue from "$server/taskRunner/taskQueue";
+import taskQueue from "$taskRunner/taskQueue";
 import { prisma } from "$utils/prisma.utils";
-import { buildFilterQuery, buildFilterQueryLimitOffset } from "./helpers/FilterQuery";
 import { buildFilterQueryLimitOffsetV2 } from "./helpers/FilterQueryV2";
 
 export async function getProducts(filter: FilteringQueryV2) : Promise<ServiceResponse<PaginationResponse<ProductDTO>>> {
-
     const filterQuery = buildFilterQueryLimitOffsetV2(filter)
-
     const data = await prisma.product.findMany(filterQuery)
 
     return {
@@ -28,7 +24,7 @@ export async function getProducts(filter: FilteringQueryV2) : Promise<ServiceRes
 export async function uploadProducts(body: { file?: Express.Multer.File, fileUrl?: string}) : Promise<ServiceResponse<string>>{
     const {file, fileUrl} = body
     
-    const taskIdentifier = 'uploadProduct'
+    const taskIdentifier = 'uploadProducts'
 
     if (!file && !fileUrl) return BadRequestWithMessage('Invalid Request, please send a file or a url')
 

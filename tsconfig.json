@@ -25,7 +25,8 @@
       "$config/*": ["config/*"],
       "$pkg/*": ["pkg/*"],
       "$app/*": ["app/*"],
-      "$server/*": ["server/*"]
+      "$server/*": ["server/*"],
+      "$taskRunner/*": ["taskRunner/*"]
     }
   },
   "include": ["src/**/*"],

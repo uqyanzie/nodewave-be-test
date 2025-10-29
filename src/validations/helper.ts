@@ -9,3 +9,4 @@ export function generateErrorStructure(field:string, message:string):ErrorStruct
         message
     }
 }
+

@@ -1,7 +1,7 @@
 export type TaskIdentifier = keyof TaskPayloadMap;
 
 export interface TaskPayloadMap {
-    uploadProduct: { uploadId: number };
+    uploadProducts: { uploadId: number };
     uploadSales: { uploadId: number };
     uploadUsers: { uploadId: number };
 }

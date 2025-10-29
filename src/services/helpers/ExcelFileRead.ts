@@ -3,8 +3,6 @@ import Logger from '$pkg/logger';
 import { ExcelColMapping, HeaderMap } from '$utils/commons';
 import * as excel from 'xlsx'
 
-
-
 export class ExcelFileRead<T extends Record<string,any>> {
     private workbook: excel.WorkBook
 

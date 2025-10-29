@@ -1,22 +1,8 @@
-import { ProductDTO, ProductExcelColMapping, ProductExcelMapping } from "$entities/Product";
-import { ExcelErrorItem, ExcelRowItem, ExcelUploadMappingType } from "$entities/Upload";
-import Logger from "$pkg/logger";
-import { ExcelFileRead } from "$services/helpers/ExcelValidation";
-import { ExcelColMapping } from "$utils/commons";
+import { ProductExcelColMapping, ProductExcelMapping } from "$entities/Product";
+import { onAfterExecution } from "../../taskRunner/taskRegistry";
+import { ExcelFileRead } from "$services/helpers/ExcelFileRead";
 import { prisma } from "$utils/prisma.utils";
-import { Prisma } from "@prisma/client";
-
 import * as excel from 'xlsx'
-
-async function onAfterExecution(uploadId: number, status: string, errors?: ExcelErrorItem[]) {
-    await prisma.fileUpload.update({
-        where: {id: uploadId},
-        data: {
-            status,
-            errors: errors ? JSON.parse(JSON.stringify(errors)) : undefined
-        }
-    })
-}
 
 export default async function uploadProducts(payload: { uploadId: number }) {
     const upload = await prisma.fileUpload.findFirst({ where: { id: payload.uploadId }})

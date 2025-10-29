@@ -1,5 +1,5 @@
-# Node Wave Base Repositories for Backend
-
+# Node Wave Backend Test Submission 
+### submitted by Uqyanzie
 
 ## Tech Stacks 
 
@@ -8,26 +8,28 @@
 - Database : MySQL
 - HTTP Framework : Express 
 - Logging : Winston + Morgan
+  *added*
+- Minio : File Storage 
+- Docker (to setup local minio server)
 
-> [!NOTE]  
+> [NOTE]  
 >  As stated in Getting Started parts of our notion, don't forget to make sure that you have Node.js >= 16.14.2 and MySQL >= 8.0.3
 
-## How to use
-
-Clone this repository, and set up various things like :
-
-- change package.json structure
-- change auth mechanism to match project
-- update readme (delete this how to use part and change the title!)
-
-> [!IMPORTANT]  
->  Steps below are steps to run on project, this repo is only a base, not a fully runnable project, this repo only serve as a template! If you wish to try this repo and add more functionality, please create your own branch locally :)
+> I made some changes in env 
+MINIO_ENDPOINT={Minio Host}
+MINIO_PORT={Mino sever port}
+MINIO_ROOT_USER={Minio public key}
+MINIO_ROOT_PASSWORD={Minio secret key}
+MINIO_BUCKET_NAME={Minio bucket name}
 
 ## Steps To Run Project Locally
 
+Install minio server locally with Docker Compose
+
+```powershell
+ docker compose up -d
 ```
-git checkout develop
-```
+
 Install dependencies with :
 
 ```powershell
@@ -49,6 +51,8 @@ Run seeder for admin user :
 ```powershell
 npm run seed
 ```
+
+Setup Local Minio Server
 
 ## Running The App 
 
@@ -188,3 +192,11 @@ npx prisma migrate --name <migration_name>
 
   Here contains middlewares that can be used in the `/server/` directory or that can be used globally inside many routes, for example we have 
   `authMiddleware` for JWT authentication, `morganMiddleware` for http logging.
+
+
+#### [ADDED] Task/Job Runner
+- `/taskRunner`
+  This folder defines the mechanisms for executing and managing background tasks. It includes components for task queuing, registration, and defining task-related types.
+
+### API Documentation
+  Postman API documentation are provided inside /docs, which can be imported to postman in your browser/desktop

@@ -1,5 +1,6 @@
 import { BadRequestWithMessage, INTERNAL_SERVER_ERROR_SERVICE_RESPONSE, INVALID_ID_SERVICE_RESPONSE, ServiceResponse } from "$entities/Service";
-import { exclude, UserJWTDAO, UserLoginDTO, UserRegisterDTO, UserRegisterValidator } from "$entities/User";
+import { exclude, UserJWTDAO, UserLoginDTO, UserRegisterDTO } from "$entities/User";
+import { UserRegisterValidator } from "$validations/UserValidation"
 import Logger from '$pkg/logger';
 import { comparePassword, hashPassword } from "$utils/hash";
 import { genAuthToken } from "$utils/jwt";

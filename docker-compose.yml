@@ -1,21 +1,37 @@
-version: "3"
 services:
   minio:
     image: minio/minio:latest
     container_name: minio
     environment:
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
-      MINIO_DEFAULT_BUCKETS: ${MINIO_BUCKET_NAME}
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_DEFAULT_BUCKETS: nodewave-be-test
+    command: server /data --console-address ":9001"
+    restart: always
     networks:
       - nodewave-be-test-net
     volumes:
       - minio_data:/nodewave-be-test
+      - ./minio-init.sh:/docker-entrypoint-init.d/minio-init.sh
     ports:
-      - ${MINIO_PORT}:${MINIO_PORT} # S3 API port
+      - "9000:9000" # S3 API port
       - "9001:9001" # MinIO Console port
+  createbuckets:
+    image: minio/mc:latest
+    networks:
+      - nodewave-be-test-net
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      sleep 5;
+      mc alias set local http://minio:9000 minioadmin minioadmin;
+      mc mb local/nodewave-be-test || true;
+      mc anonymous set download local/nodewave-be-test;
+      echo '✅ MinIO bucket nodewave-be-test created and set to public';
+      "
 networks:
-  mynet:
+  nodewave-be-test-net:
     driver: bridge
 volumes:
   minio_data:
