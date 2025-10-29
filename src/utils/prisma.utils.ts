@@ -1,23 +1,23 @@
 import { PrismaClient } from "@prisma/client";
 
-const prismaLogOptsNonProd:any = [
-  {
-    emit: "stdout",
-    level: "query",
-  },
-  {
-    emit: "stdout",
-    level: "error",
-  },
-  {
-    emit: "stdout",
-    level: "info",
-  },
-  {
-    emit: "stdout",
-    level: "warn",
-        },
-]
+// const prismaLogOptsNonProd:any = [
+//   {
+//     emit: "stdout",
+//     level: "query",
+//   },
+//   {
+//     emit: "stdout",
+//     level: "error",
+//   },
+//   {
+//     emit: "stdout",
+//     level: "info",
+//   },
+//   {
+//     emit: "stdout",
+//     level: "warn",
+//         },
+// ]
 
 const prismaLogOptsProd:any = [
   {
@@ -30,7 +30,7 @@ const prismaLogOptsProd:any = [
   },
 ]
 
-const prismaLogOpts = process.env.ENVIRONMENT === "production" ? prismaLogOptsProd : prismaLogOptsNonProd
+const prismaLogOpts = prismaLogOptsProd //process.env.ENVIRONMENT === "production" ? prismaLogOptsProd : prismaLogOptsNonProd
 
 export class PrismaInstance {
   private static instance: PrismaInstance;

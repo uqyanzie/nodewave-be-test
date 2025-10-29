@@ -158,7 +158,7 @@ export const response_created = (
 
 export const handleServiceErrorWithResponse = (
   res: Response,
-  serviceResponse: ServiceResponse<any>
+  serviceResponse: ServiceResponse
 ): Response => {
   switch (serviceResponse.err?.code) {
     case 400:

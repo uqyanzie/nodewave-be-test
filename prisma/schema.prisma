@@ -2,12 +2,84 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+    provider = "mysql"
+    url      = env("DATABASE_URL")
 }
 
 // Declare schemas here
+model User {
+    id Int @id @default(autoincrement())
+    email String @unique
+    fullName String
+    role Roles @default(USER)
+    password String
+    sales Sales[]
+}
+
+enum Roles {
+    USER
+    ADMIN
+}
+model Product {
+    id Int @id @default(autoincrement())
+    skuCode String @unique
+    name String
+    category String
+    weight Float
+    unit String @default("pcs")
+    bottomPrice Float //bottom price per unit 
+    salesItems SalesItem[]
+}
+
+model Sales {
+    id Int @id @default(autoincrement())
+    sellerId Int
+    seller User @relation(fields: [sellerId], references: [id])
+    receiptNumber String
+    transactionTime DateTime
+    discount Float?
+    totalPrice Float
+    totalPriceDiscount Float
+}
+
+model SalesItem {
+    id Int @id @default(autoincrement())
+    productId Int 
+    product Product @relation(fields: [productId], references: [id])
+    quantity Int
+    sellPrice Float
+}
+
+enum ProductCategory {
+    SPAREPART
+    KIT
+    ACCESSORIES
+}
+
+model TaskJob {
+    id Int @id @default(autoincrement())
+    taskIdentifier String
+    payload Json?
+    status String
+    errorMessage String?
+    createdAt DateTime @default(now())
+    lastExecutionAt DateTime @default(now())
+    retries Int @default(0)
+    finishedAt DateTime?
+    fileUpload FileUpload?
+}
+
+model FileUpload {
+    id Int @id @default(autoincrement())
+    jobId Int? @unique
+    job TaskJob? @relation(fields: [jobId], references: [id])
+    taskIdentifier String
+    status String
+    fileUrl String
+    errors Json?
+    createdAt DateTime @default(now())
+}

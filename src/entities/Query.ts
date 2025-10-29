@@ -45,9 +45,9 @@ export interface FilteringQueryV2 {
   cursor?: string;
   orderKey?: string;
   orderRule?: string;
-  filters?: Record<string, any | any[] | null>;
-  searchFilters?: Record<string, any | null>;
-  rangedFilters?: RangedFilter[]
+  filters?: string;
+  searchFilters?: string;
+  rangedFilters?: string;
 }
 
 

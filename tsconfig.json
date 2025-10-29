@@ -12,6 +12,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "baseUrl": "src",
+    "typeRoots": ["$utils/types"],
     "paths": {
       "$routes/*": ["routes/*"],
       "$controllers/*": ["controllers/*"],
