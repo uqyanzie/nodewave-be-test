@@ -15,11 +15,11 @@ const minioClient = new Client({
     useSSL: false
 })
 
-export const uploadFileHandler = async (file: Express.Multer.File, secure=false) => {
+export const uploadFileHandler = async (file: Express.Multer.File, fileName?:string, secure=false) => {
     try {
-        const [fileName, extension] = file.originalname.split('.')
+        const [originalFileName, extension] = file.originalname.split('.')
 
-        const newFileName = `${fileName}_${new Date().getTime()}.${extension}`
+        const newFileName =  fileName ?? `${originalFileName}_${new Date().getTime()}.${extension}`
 
         await minioClient.fPutObject(MINIO_BUCKET_NAME, newFileName, file.path)
         const input = `${MINIO_ENDPOINT}:${MINIO_PORT}/${MINIO_BUCKET_NAME}/${newFileName}`

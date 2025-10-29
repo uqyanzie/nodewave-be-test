@@ -22,7 +22,8 @@ export async function onAfterExecution(uploadId: number, status: string, errors?
         where: {id: uploadId},
         data: {
             status,
-            errors: errors ? JSON.parse(JSON.stringify(errors)) : undefined
+            errors: errors ? JSON.parse(JSON.stringify(errors)) : undefined,
+            errRows: errors?.length
         }
     })
 }

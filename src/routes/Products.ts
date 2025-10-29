@@ -7,15 +7,20 @@ const upload = multer({dest: "uploads/"})
 
 const ProductRoutes = Router({mergeParams:true}) // mergeParams = true -> to enable parsing query params
 
+ProductRoutes.get("/", 
+    authMiddleware,
+    ProductController.getProducts
+)
+
 ProductRoutes.post("/upload", 
     adminMiddleware,
     upload.single("file"),
     ProductController.uploadProduct
 )
 
-ProductRoutes.get("/", 
-    authMiddleware,
-    ProductController.getProducts
+ProductRoutes.get("/upload", 
+    adminMiddleware,
+    ProductController.getProductFiles
 )
 
 export default ProductRoutes

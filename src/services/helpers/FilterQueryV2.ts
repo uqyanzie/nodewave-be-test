@@ -172,21 +172,18 @@ export function buildFilterQueryLimitOffsetV2(filter: FilteringQueryV2) {
   
   */
   if (filter.filters) {
-    const filters =  JSON.parse(filter.filters)
-    usedFilter.where.AND = buildWhereQuery(filters)
+    usedFilter.where.AND = buildWhereQuery(filter.filters)
   }
   
   if(filter.searchFilters){
-    const searchFilters =  JSON.parse(filter.searchFilters)
-    usedFilter.where.AND = buildSearchQuery(searchFilters).reduce((arr,v)=>{
+    usedFilter.where.AND = buildSearchQuery(filter.searchFilters).reduce((arr,v)=>{
       arr.push(v)
       return arr
     },usedFilter.where.AND)
   }
 
   if(filter.rangedFilters){
-    const rangedFilters =  JSON.parse(filter.rangedFilters)
-    usedFilter.where.AND = buildRangedFilter(rangedFilters).reduce((arr,v)=>{
+    usedFilter.where.AND = buildRangedFilter(filter.rangedFilters).reduce((arr,v)=>{
       arr.push(v)
       return arr
     },usedFilter.where.AND)

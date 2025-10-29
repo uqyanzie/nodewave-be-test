@@ -1,5 +1,6 @@
 
 import { ExcelColMapping, HeaderMap } from "$utils/commons"
+import { JsonValue } from "@prisma/client/runtime/library";
 
 export type Cell =
     // check https://docs.sheetjs.com/docs/csf/cell#cell-types
@@ -26,3 +27,13 @@ export type ExcelErrorItem = {
 export type ExcelRowType = Record<string, 'string' | 'number'>
 
 export type ExcelRowItem<T> = {  rowNumber : number } & T
+
+export interface FileUploadDAO  {
+    id: number;
+    jobId?: number | null;
+    taskIdentifier: string;
+    status: string;
+    fileUrl: string;
+    errors: JsonValue;
+    createdAt: Date;
+}
