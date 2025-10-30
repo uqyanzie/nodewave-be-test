@@ -1,7 +1,8 @@
 // src/modules/taskRunner/taskQueue.ts
-import { taskRegistry } from "./taskRegistry";
+import { TaskHandler, taskRegistry } from "./taskRegistry";
 import { createTaskLog, updateTaskLog } from "./taskLogger";
 import { TaskIdentifier, TaskLogData, TaskPayloadMap } from "./types";
+import { prisma } from "$utils/prisma.utils";
 
 interface TaskItem<K extends TaskIdentifier> {
   logId: number;
@@ -52,6 +53,32 @@ class TaskQueue {
       this.isRunning = false;
       if (this.queue.length > 0) void this.processQueue();
     }
+  }
+
+  async retry(jobId: number) {
+    const taskLog = await prisma.taskJob.findFirst({where:{ id: jobId }});
+
+    if (!taskLog) throw new Error(`Task with ID ${jobId} not found`);
+
+    await prisma.taskJob.update({
+      where:{ id: jobId },
+      data: {
+        status: 'queued'
+      }
+    });
+    
+    this.queue.push({
+      logId: taskLog.id,
+      taskIdentifier: taskLog.taskIdentifier as TaskIdentifier,
+      payload: taskLog.payload as TaskPayloadMap[TaskIdentifier]
+    });
+    
+    void this.processQueue();
+
+    return {
+      message: `Task ${jobId} enqueued for retry`,
+      task: taskLog,
+    };
   }
 }
 

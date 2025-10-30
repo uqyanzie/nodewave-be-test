@@ -1,5 +1,6 @@
 
 import { ExcelColMapping, HeaderMap } from "$utils/commons"
+import { UploadFileType } from "@prisma/client";
 import { JsonValue } from "@prisma/client/runtime/library";
 
 export type Cell =
@@ -32,6 +33,8 @@ export interface FileUploadDAO  {
     id: number;
     jobId?: number | null;
     taskIdentifier: string;
+    errRows?: number | null;
+    uploadType?: UploadFileType | null;
     status: string;
     fileUrl: string;
     errors: JsonValue;

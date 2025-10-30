@@ -19,9 +19,8 @@ router.get("/ping", (req: Request, res: Response) => {
 });
 
 router.use("/auth", RoutesRegistry.AuthRoutes)
-
 router.use("/products", RoutesRegistry.ProductRoutes)
-
+router.use("/files", RoutesRegistry.FileRoutes)
 router.use("/example", RoutesRegistry.ExampleRoutes)
 
 router.all("*", (req: Request, res: Response) => {
