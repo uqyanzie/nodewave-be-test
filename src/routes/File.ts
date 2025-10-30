@@ -1,9 +1,6 @@
 import { Router } from "express";
 import * as FileController from "$controllers/rest/FileController"
-import multer from 'multer'
-import { adminMiddleware, authMiddleware } from "$middlewares/auth";
-
-const upload = multer({dest: "uploads/"})
+import { adminMiddleware } from "$middlewares/auth";
 
 const FileRoutes = Router({mergeParams:true}) // mergeParams = true -> to enable parsing query params
 
