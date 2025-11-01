@@ -14,7 +14,7 @@ export type Cell =
 export type ExcelUploadMappingType<T> = {
     colMapping: ExcelColMapping
     headerMap: HeaderMap
-    excelRowType: ExcelRowType
+    excelRowTypeMap: ExcelRowTypeMap
 }
 
 export type ExcelErrorItem = {
@@ -25,7 +25,7 @@ export type ExcelErrorItem = {
     found?: Cell | string | number
 }
 
-export type ExcelRowType = Record<string, 'string' | 'number'>
+export type ExcelRowTypeMap = Record<string, 'string' | 'number' | 'date' | 'time' >
 
 export type ExcelRowItem<T> = {  rowNumber : number } & T
 

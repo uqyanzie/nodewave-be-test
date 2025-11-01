@@ -1,5 +1,5 @@
 import { ExcelColMapping, HeaderMap } from "$utils/commons";
-import { ExcelRowType, ExcelUploadMappingType } from "./Upload";
+import { ExcelRowTypeMap, ExcelUploadMappingType } from "./Upload";
 
 export interface ProductDTO {
     skuCode: string;
@@ -10,7 +10,7 @@ export interface ProductDTO {
     bottomPrice: number;
 }
 
-const ProductExcelRowType : ExcelRowType = {
+const ProductExcelRowTypeMap : ExcelRowTypeMap = {
     skuCode: 'string',
     name: 'string',
     category: 'string',
@@ -41,5 +41,5 @@ const ProductHeaderMap: HeaderMap = {
 export const ProductExcelMapping : ExcelUploadMappingType<ProductDTO> = {
     colMapping: ProductExcelColMapping,
     headerMap: ProductHeaderMap,
-    excelRowType: ProductExcelRowType,
+    excelRowTypeMap: ProductExcelRowTypeMap,
 } 

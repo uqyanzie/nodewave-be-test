@@ -1,6 +1,5 @@
 import { FilteringQueryV2, RangedFilter } from "$entities/Query";
 
-
 function buildSearchQuery(searchFilters:Record<string, any | any[] | null>):any[]{
   let whereClauseAndResult:any = [];
   let orQuerySearchArray:any[] = [];
@@ -144,7 +143,7 @@ function buildRangedFilter(rangedFilters:RangedFilter[]):any[]{
 }
 
 
-export function buildFilterQueryLimitOffsetV2(filter: FilteringQueryV2) {
+export function buildFilterQueryLimitOffsetV2<K>(filter: FilteringQueryV2) {
   let usedFilter: any = {
     where: {
       AND:[]
@@ -212,7 +211,6 @@ export function buildFilterQueryLimitOffsetV2(filter: FilteringQueryV2) {
 
   usedFilter.take = take;
   usedFilter.skip = skip;
-
 
   return usedFilter;
 }

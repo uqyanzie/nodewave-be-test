@@ -35,29 +35,33 @@ model Product {
     salesItems SalesItem[]
 }
 
+enum ProductCategory {
+    SPAREPART
+    KIT
+    ACCESSORIES
+}
+
 model Sales {
     id Int @id @default(autoincrement())
     sellerId Int
     seller User @relation(fields: [sellerId], references: [id])
     receiptNumber String
-    transactionTime DateTime
+    transactionDate DateTime @db.Date
+    transactionTime DateTime @db.Time()
     discount Float?
     totalPrice Float
     totalPriceDiscount Float
+    salesItems SalesItem[]
 }
 
 model SalesItem {
     id Int @id @default(autoincrement())
+    salesId Int
     productId Int 
     product Product @relation(fields: [productId], references: [id])
+    sales Sales @relation(fields: [salesId], references: [id])
     quantity Int
     sellPrice Float
-}
-
-enum ProductCategory {
-    SPAREPART
-    KIT
-    ACCESSORIES
 }
 
 model TaskJob {

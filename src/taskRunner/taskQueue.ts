@@ -3,6 +3,7 @@ import { TaskHandler, taskRegistry } from "./taskRegistry";
 import { createTaskLog, updateTaskLog } from "./taskLogger";
 import { TaskIdentifier, TaskLogData, TaskPayloadMap } from "./types";
 import { prisma } from "$utils/prisma.utils";
+import Logger from "$pkg/logger";
 
 interface TaskItem<K extends TaskIdentifier> {
   logId: number;
@@ -40,7 +41,7 @@ class TaskQueue {
     } catch (err: any) {
       status = "failed";
       errorMessage = err?.message ?? "Unknown error";
-      console.error(`❌ Task ${taskIdentifier} failed:`, err);
+      Logger.error(`❌ Task ${taskIdentifier} failed:`, err);
     } finally {
       await updateTaskLog(logId, {
         status,
